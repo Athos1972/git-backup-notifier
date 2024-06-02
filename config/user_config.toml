@@ -1,0 +1,12 @@
+[BackupSettings]
+backup_root_path = "/user/specified/backup/path"
+min_file_size = 100
+max_file_size = 20971520  # 20 MB in bytes
+
+[Notifications]
+email = "user@example.com"
+telegram_token = "user-telegram-bot-token"
+telegram_chat_id = "user-telegram-chat-id"
+
+[Repositories]
+repo_paths = ["/path/to/repo1", "/path/to/repo2"]

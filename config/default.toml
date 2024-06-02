@@ -1,0 +1,24 @@
+[BackupSettings]
+backup_root_path = "/default/backup/path"
+min_file_size = 0
+max_file_size = 10485760  # 10 MB in bytes
+delete_after_days = 30
+
+[Notifications]
+email = "default@example.com"
+smtp_server = "smtp.example.com"
+smtp_port = 587
+smtp_user = "user@example.com"
+smtp_password = "password"
+telegram_token = "default-telegram-bot-token"
+telegram_chat_id = "default-telegram-chat-id"
+
+[Exclusions]
+exclude_patterns = ["*.log", "*.tmp", "*.bak", ".DS_Store"]
+exclude_dirs = [".git", "venv", "venv2", "logs", "__pycache__"]
+
+[Repositories]
+repo_paths = ["/path/to/repo1", "/path/to/repo2"]
+
+[GeneralSettings]
+is_test_mode = true
