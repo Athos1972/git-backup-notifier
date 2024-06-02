@@ -2,6 +2,24 @@
 
 Git Backup Notifier is a Python script designed to backup uncommitted and unpushed files from multiple Git repositories. The script ensures that only relevant files are backed up, excluding specified directories and applying size filters. Additionally, the script sends notifications about the backup status via email, Telegram, and local notifications.
 
+# Why?
+This was written when I realized that most of my local project files were not backed up and the cat ran over my unlocked 
+keyboard. Nothing much happened, but it could have been bad and cost me hours or days to recover.
+
+There are two main use cases
+1. Regular Backup of uncommitted and unpushed files from multiple Git repositories.
+2. Use of 2 computers that need some kind if synchronization via apple cloud, google drive, onedrive or similar.
+
+For instance you have a desktop and a laptop and you want to work on the same project on both computers.
+You can't commit sensitive files like passwords, API keys, etc. to the repository. Sending them via E-Mail get's 
+old quickly, especially when you make changes to those files frequently.
+You can use this script to backup the uncommitted and unpushed files from the desktop to the laptop and vice versa. 
+
+You'll need to manually copy the files from the backup medium to the repository folder on the other computer 
+but that's easier than having to remote access the other computer to get those files.
+
+```venv, .git, __pycache__``` are excluded by default. You can add more exclusion patterns in the config file.
+
 ## Features
 
 - Backup uncommitted and unpushed files from multiple Git repositories.
