@@ -6,16 +6,30 @@ import subprocess
 import sys
 
 
-def send_email_notification(to_address, subject, body):
+def send_email_notification(to_address, subject, body, smtp_config=None):
+    if not smtp_config:
+        print("No SMTP configuration provided.")
+        return
+    server = smtp_config.get('smtp_server', 'smtp.example.com')
+
+    if not server:
+        print("No SMTP server provided.")
+        return
+
+    port = smtp_config.get('smtp_port', 587)
+    username = smtp_config.get('smtp_user', 'dummy-username')
+    password = smtp_config.get('smtp_password', 'your-password')
+    from_address = smtp_config.get('from_address', 'test@dummy.com')
+
     msg = MIMEText(body)
     msg['Subject'] = subject
     msg['From'] = 'your-email@example.com'
     msg['To'] = to_address
 
     try:
-        with smtplib.SMTP('smtp.example.com') as server:
-            server.login('your-username', 'your-password')
-            server.sendmail('your-email@example.com', [to_address], msg.as_string())
+        with smtplib.SMTP(server, port=port) as server:
+            server.login(user=username, password=password)
+            server.sendmail(from_addr=from_address, to_addrs=[to_address], msg=msg.as_string())
     except Exception as e:
         print(f"Failed to send email: {e}")
 
@@ -65,6 +79,10 @@ def send_linux_notification(title, message):
 def send_notification(title, message, config):
     send_local_notification(title, message)
     if 'email' in config['Notifications']:
-        send_email_notification(config['Notifications']['email'], title, message)
+        send_email_notification(to_address=config['Notifications']['email'],
+                                subject=title,
+                                body=message,
+                                smtp_config=config['Notifications'])
     if 'telegram_token' in config['Notifications'] and 'telegram_chat_id' in config['Notifications']:
-        send_telegram_notification(config['Notifications']['telegram_token'], config['Notifications']['telegram_chat_id'], message)
+        send_telegram_notification(config['Notifications']['telegram_token'],
+                                   config['Notifications']['telegram_chat_id'], message)

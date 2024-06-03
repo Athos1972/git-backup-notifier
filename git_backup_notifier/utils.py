@@ -104,7 +104,7 @@ def get_unpushed_files(repo_path):
         os.chdir(repo_path)
         branch = subprocess.check_output(['git', 'rev-parse', '--abbrev-ref', 'HEAD']).strip().decode()
         remote_branch = f'origin/{branch}'
-        result = subprocess.run(['git', 'log', f'{remote_branch}..{branch}', '--name-only', '--pretty=format:'],
+        result = subprocess.run(['git', 'log', '--name-only', '--pretty=format:'],
                                 capture_output=True, text=True)
         files = set(result.stdout.splitlines())
         files.discard('')  # Remove empty strings
